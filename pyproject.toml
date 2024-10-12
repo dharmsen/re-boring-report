@@ -1,0 +1,18 @@
+[project]
+name = "re-boring-report"
+version = "dev.0.0"
+dependencies = [
+	"requests",
+	"flask"
+]
+authors = [{name = "Dalton Harmsen", email = "daltonrharmsen@gmail.com"}]
+maintainers = []
+description = "Reverse-engineering Boring Report"
+readme = "README.md"
+keywords = ["generative artificial intelligence", "news"]
+classifiers = [
+	"Development Status :: 3 - Alpha",
+]
+
+[project.urls]
+Repository = "https://github.com/dharmsen/re-boring-report"
