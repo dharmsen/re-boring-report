@@ -9,7 +9,7 @@ One of the limitations I found with the original Boring Report is its generally 
 ## High-level System Description
 The system is practically a three-step process.
 
-TODO First the news articles need to be obtained from the news sources and stored in a `.json` file.
+First the news articles need to be obtained from the news sources and stored in a `.json` file.
 ```
 {
     "source_url": ...,
