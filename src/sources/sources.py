@@ -32,13 +32,13 @@ class NOSNewsSource(NewsSource):
     """
     NewsSource object wrapping NOS.nl
     """
-    def get_articles(self) -> dict:
+    def get_articles(self, processed=True) -> dict:
         """
         Get articles from NOS.nl and optionally format into the proper JSON formatting.
         """
         articles = requests.get(self.api_url + "/api/nos").json()
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
 
         return articles
 
@@ -49,7 +49,7 @@ class NOSNewsSource(NewsSource):
         articles = requests.get(self.api_url + "/api/nos").json()
         
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
         
         with open(filepath, "w") as file:
             json.dump(articles, file, indent=4)
@@ -76,13 +76,13 @@ class ADNewsSource(NewsSource):
     """
     NewsSource object wrapping AD.nl
     """
-    def get_articles(self) -> dict:
+    def get_articles(self, processed=True) -> dict:
         """
         Get articles from AD.nl and optionally format into the proper JSON formatting.
         """
         articles = requests.get(self.api_url + "/api/ad").json()
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
 
         return articles
 
@@ -93,7 +93,7 @@ class ADNewsSource(NewsSource):
         articles = requests.get(self.api_url + "/api/ad").json()
         
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
         
         with open(filepath, "w") as file:
             json.dump(articles, file, indent=4)
@@ -121,13 +121,13 @@ class TelegraafNewsSource(NewsSource):
     """
     NewsSource object wrapping Telegraaf.nl
     """
-    def get_articles(self) -> dict:
+    def get_articles(self, processed=True) -> dict:
         """
         Get articles from Telegraaf.nl and optionally format into the proper JSON formatting.
         """
         articles = requests.get(self.api_url + "/api/telegraaf").json()
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
 
         return articles
 
@@ -138,7 +138,7 @@ class TelegraafNewsSource(NewsSource):
         articles = requests.get(self.api_url + "/api/telegraaf").json()
         
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
         
         with open(filepath, "w") as file:
             json.dump(articles, file, indent=4)
@@ -167,13 +167,13 @@ class VolkskrantNewsSource(NewsSource):
     NewsSource object wrapping Volkskrant.nl
     """
     # TODO RSS feed only contains title and link, no description
-    def get_articles(self) -> dict:
+    def get_articles(self, processed=True) -> dict:
         """
         Get articles from Volkskrant.nl and optionally format into the proper JSON formatting.
         """
         articles = requests.get(self.api_url + "/api/volkskrant").json()
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.reprocess_articles(articles)
 
         return articles
 
@@ -184,7 +184,7 @@ class VolkskrantNewsSource(NewsSource):
         articles = requests.get(self.api_url + "/api/volkskrant").json()
         
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
         
         with open(filepath, "w") as file:
             json.dump(articles, file, indent=4)
@@ -212,13 +212,13 @@ class NRCNewsSource(NewsSource):
     """
     NewsSource object wrapping NRC.nl
     """
-    def get_articles(self) -> dict:
+    def get_articles(self, processed=True) -> dict:
         """
         Get articles from NRC.nl and optionally format into the proper JSON formatting.
         """
         articles = requests.get(self.api_url + "/api/nrc").json()
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
 
         return articles
 
@@ -229,7 +229,7 @@ class NRCNewsSource(NewsSource):
         articles = requests.get(self.api_url + "/api/nrc").json()
         
         if processed:
-            processed_articles = preprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
         
         with open(filepath, "w") as file:
             json.dump(articles, file, indent=4)
@@ -250,4 +250,3 @@ class NRCNewsSource(NewsSource):
             preprocessed_articles.append(preprocessed_article)
 
         return preprocessed_articles
-
