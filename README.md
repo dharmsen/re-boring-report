@@ -6,6 +6,19 @@ This project is an attempt at reverse engineering the inner workings of Boring R
 
 One of the limitations I found with the original Boring Report is its generally US-focused news, which I want to make more customizable by being able to select your own (local) news sources.
 
+## Getting Started
+To get started, you have to install the requirements, preferrably in a virtual environment.
+To create a virtual environment, use the following command:
+```python3 -m venv venv```
+This creates a virtual environment in the `venv` folder.
+To activate this virtual environment, run the following command:
+```source venv/bin/activate```
+To install the dependencies for this project, run the following command whilst in the virtual environment:
+```pip install -r requirements.txt```
+
+Further details about the usage of the library are on the way, once the implementation is sufficiently complete.
+
+
 ## High-level System Description
 The system is practically a three-step process.
 
@@ -23,3 +36,6 @@ First the news articles need to be obtained from the news sources and stored in 
 TODO Next, articles reporting the same news need to be clustered.
 
 TODO Finally, the clustered articles need to be aggregated and rewritten into one, neutral article.
+
+## Future Ideas
+- Language-agnostic embeddings and rewrites into a language of choice
