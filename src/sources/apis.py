@@ -42,6 +42,7 @@ def telegraaf_rss_to_json():
 
 @app.route("/api/volkskrant", methods=["GET"])
 def volkskrant_rss_to_json():
+    # TODO functional but only contains link, no description
     RSS_FEED_URL = "https://www.volkskrant.nl/voorpagina/rss.xml"
     return rss_to_json(RSS_FEED_URL)
 
