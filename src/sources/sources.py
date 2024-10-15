@@ -173,7 +173,7 @@ class VolkskrantNewsSource(NewsSource):
         """
         articles = requests.get(self.api_url + "/api/volkskrant").json()
         if processed:
-            articles = self.reprocess_articles(articles)
+            articles = self.preprocess_articles(articles)
 
         return articles
 
