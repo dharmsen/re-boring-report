@@ -1,10 +1,9 @@
 import numpy as np
 from sklearn.preprocessing import normalize
+from sklearn.decomposition import PCA
 import torch
 from transformers import AutoTokenizer, AutoModel
 import hdbscan
-
-from sources.sources import NOSNewsSource, ADNewsSource, TelegraafNewsSource, VolkskrantNewsSource, NRCNewsSource
 
 class BertClustering():
     """
@@ -17,10 +16,10 @@ class BertClustering():
         for news_source in self.news_sources:
             self.articles += news_source.get_articles()
 
-        self.model_name = "bert-base-uncased"
+        self.model_name = "bert-base-multilingual-uncased"
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model = AutoModel.from_pretrained(self.model_name)
-        self.clusterer = hdbscan.HDBSCAN(min_cluster_size=1, metric="euclidian")
+        self.clusterer = hdbscan.HDBSCAN(min_cluster_size=10, metric="euclidean")
 
     def preprocess_articles(self, articles: list):
         """
@@ -42,4 +41,14 @@ class BertClustering():
         with torch.no_grad():
             outputs = self.model(**inputs)
             embeddings = outputs.last_hidden_state.mean(dim=1).cpu().numpy()
-        return normalize(embeddings)
+            normalized_embeddings = normalize(embeddings)
+            pca = PCA(n_components=10)
+            reduced_embeddings = pca.fit_transform(normalized_embeddings)
+        return reduced_embeddings
+
+    def get_cluster_labels(self, embeddings: np.ndarray):
+        """
+        Get cluster labels from embeddings using HDBSCAN.
+        """
+        labels = self.clusterer.fit_predict(embeddings)
+        return labels
