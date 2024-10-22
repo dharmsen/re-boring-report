@@ -13,19 +13,19 @@ class NewsSource():
         """
         Get articles and optionally format into the proper JSON formatting.
         """
-        ...
+        raise NotImplementedError
 
     def get_write_articles(self, filepath: str, processed=True):
         """
         Get articles and optionally format into proper JSON formatting to write to a JSON file.
         """
-        ...
+        raise NotImplementedError
 
     def preprocess_articles(self, articles: dict) -> dict:
         """
         Preprocess the articles from their RSS feed format to the proper JSON formatting.
         """
-        ...
+        raise NotImplementedError
 
 
 class NOSNewsSource(NewsSource):
