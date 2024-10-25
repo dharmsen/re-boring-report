@@ -41,6 +41,7 @@ First the news articles need to be obtained from the news sources and stored in 
 
 TODO Next, articles reporting the same news need to be clustered.
 Right now, this is done using BERT base multilingual and HDB scan for clustering.
+The article is pre-processed by removing any (language-specific) stop-words before feeding into the embedding model.
 This configuration requires tweaking to be usable.
 
 TODO Finally, the clustered articles need to be aggregated and rewritten into one, neutral article.
