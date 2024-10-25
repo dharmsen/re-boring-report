@@ -1,6 +1,11 @@
 ### Sources for obtaining news articles
 import requests
 import json
+from enum import Enum
+
+class Language(Enum):
+    EN = "EN"
+    NL = "NL"
 
 class NewsSource():
     """
@@ -32,6 +37,10 @@ class NOSNewsSource(NewsSource):
     """
     NewsSource object wrapping NOS.nl
     """
+    def __init__(self, api_url: str):
+        self.api_url = api_url
+        self.language = Language.NL
+
     def get_articles(self, processed=True) -> dict:
         """
         Get articles from NOS.nl and optionally format into the proper JSON formatting.
@@ -76,6 +85,10 @@ class ADNewsSource(NewsSource):
     """
     NewsSource object wrapping AD.nl
     """
+    def __init__(self, api_url: str):
+        self.api_url = api_url
+        self.language = Language.NL
+
     def get_articles(self, processed=True) -> dict:
         """
         Get articles from AD.nl and optionally format into the proper JSON formatting.
@@ -121,6 +134,10 @@ class TelegraafNewsSource(NewsSource):
     """
     NewsSource object wrapping Telegraaf.nl
     """
+    def __init__(self, api_url: str):
+        self.api_url = api_url
+        self.language = Language.NL
+
     def get_articles(self, processed=True) -> dict:
         """
         Get articles from Telegraaf.nl and optionally format into the proper JSON formatting.
@@ -166,6 +183,10 @@ class VolkskrantNewsSource(NewsSource):
     """
     NewsSource object wrapping Volkskrant.nl
     """
+    def __init__(self, api_url: str):
+        self.api_url = api_url
+        self.language = Language.NL
+
     # TODO RSS feed only contains title and link, no description
     def get_articles(self, processed=True) -> dict:
         """
@@ -212,6 +233,10 @@ class NRCNewsSource(NewsSource):
     """
     NewsSource object wrapping NRC.nl
     """
+    def __init__(self, api_url: str):
+        self.api_url = api_url
+        self.language = Language.NL
+
     def get_articles(self, processed=True) -> dict:
         """
         Get articles from NRC.nl and optionally format into the proper JSON formatting.
