@@ -8,10 +8,12 @@ from sources.sources import Language
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
+
 class BertClustering():
     """
     Object handling clustering of articles.
     """
+
     def __init__(self, news_sources: list):
         self.news_sources = news_sources
 
@@ -34,21 +36,24 @@ class BertClustering():
         stopwords_set = set(stopwords.words(language))
         article_wordslist = word_tokenize(article)
         filtered_words = filter(lambda word:
-                                    word.lower() not in stop_words,
-                                    article_wordslist)
+                                word.lower() not in stop_words,
+                                article_wordslist)
         article_nostop = ' '.join(filtered_words)
         return article_nostop
 
     def preprocess_articles(self, sources_articles: list):
         """
-        Pre-process the articles to use as model input for embedding clustering.
+        Pre-process the articles to use as model input for embedding
+        clustering.
         """
         processed_articles = []
         for source, article in sources_articles:
             article_title = article["article_title"]
             article_text = article["article_text"]
-            article_title_nostop = self.remove_stop_words(article, source.language)
-            article_text_nostop = self.remove_stop_words(article, source.language)
+            article_title_nostop = self.remove_stop_words(
+                article, source.language)
+            article_text_nostop = self.remove_stop_words(
+                article, source.language)
             text_article = f"# Title:\n{article_title_nostop}\n\n# Text:\n{article_text}"
             processed_articles.append(text_article)
         return processed_articles
@@ -69,7 +74,13 @@ class BertClustering():
         """
         Get BERT embeddings from articles.
         """
-        inputs = self.tokenizer(articles, padding=True, truncation=True, return_tensors="pt", max_length=512)
+        inputs = self.tokenizer(
+            articles,
+            padding=True,
+            truncation=True,
+            return_tensors="pt",
+            max_length=512
+        )
         with torch.no_grad():
             outputs = self.model(**inputs)
             embeddings = outputs.last_hidden_state.mean(dim=1).cpu().numpy()

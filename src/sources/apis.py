@@ -1,4 +1,4 @@
-### APIs for obtaining news articles from news sources
+# APIs for obtaining news articles from news sources
 
 from flask import Flask, jsonify
 import requests
@@ -19,7 +19,9 @@ def rss_to_json(rss_feed_url: str) -> dict:
 
         return jsonify(rss_data)
     except requests.exceptions.RequestException as e:
-        return jsonify({"error": "Failed to fetch RSS feed", "message": str(e)}), 500
+        return jsonify(
+            {"error": "Failed to fetch RSS feed",
+             "message": str(e)}), 500
 
 
 @app.route("/api/nos", methods=["GET"])
